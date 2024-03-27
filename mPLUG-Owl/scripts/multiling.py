@@ -33,11 +33,10 @@ processor = MplugOwlProcessor(image_processor, tokenizer)
 
 logging.info("loaded everything else")
 
-def translate(image_file, query):
+def translate(image_list, query):
     # We use a human/AI template to organize the context as a multi-turn conversation.
     # <image> denotes an image placehold.
     prompts = [query]
-    image_list = [image_file]
     logging.info(f"Translating: {query} for image: {image_file}")
 
     # generate kwargs (the same in transformers) can be passed in the do_generate()
@@ -59,17 +58,14 @@ def translate(image_file, query):
 
 
 if __name__ == "__main__":
-    image_files = []
-    for i in range(200):
-        image_files.append(f"/net/cephfs/shares/iict-sp4.ebling.cl.uzh/ad-experiments/scripts/test_gpttranslationENDE/image_{i}.jpg")
+    image_files = ["../../image_198_0.jpg", "../../image_198_50.jpg", "../../image_198_100.jpg", "../../image_198_150.jpg", "../../image_198_200.jpg"]
 
-    ads = open("../mPLUG-Owl2/source_ads.txt", "r").readlines()
 
-    queries = [f'''The following is a conversation between a curious human and AI assistant. The assistant gives helpful, detailed, and polite answers to the user's questions.
+    query = f'''The following is a conversation between a curious human and AI assistant. The assistant gives 
+    helpful, detailed, and polite answers to the user's questions.
     Human: <image>
-    Human: Translate the following audio description for this image from English to German even if the audio description does not match the image: \n {ad.strip()}".
-    AI: ''' for ad in ads]
+    Human: Translate the following audio description for these images from English to German even if the audio 
+    description does not match the image: \n Back to Matthieu Fournier. The electric blue canopy of his paraglider contrasts with the white of the surrounding landscape.".
+    AI: '''
 
-    with open("translations.txt", "w") as outfile:
-        for image_file, query in zip(image_files, queries):
-            outfile.write(translate(image_file, query).replace("\n", " ").strip() + "\n")
+    print(translate(image_files, query))
