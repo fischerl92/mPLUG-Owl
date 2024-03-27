@@ -37,7 +37,7 @@ def translate(image_list, query):
     # We use a human/AI template to organize the context as a multi-turn conversation.
     # <image> denotes an image placehold.
     prompts = [query]
-    logging.info(f"Translating: {query} for image: {image_file}")
+    logging.info(f"Translating: {query} for image: {image_list}")
 
     # generate kwargs (the same in transformers) can be passed in the do_generate()
     generate_kwargs = {
@@ -59,7 +59,6 @@ def translate(image_list, query):
 
 if __name__ == "__main__":
     image_files = ["../../image_198_0.jpg", "../../image_198_50.jpg", "../../image_198_100.jpg", "../../image_198_150.jpg", "../../image_198_200.jpg"]
-
 
     query = f'''The following is a conversation between a curious human and AI assistant. The assistant gives 
     helpful, detailed, and polite answers to the user's questions.
