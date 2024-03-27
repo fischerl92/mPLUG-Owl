@@ -1,6 +1,8 @@
 import os
 os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
 
+# srun --pty -n 1 -c 2 --time=01:00:00 --mem=40G --gres=gpu:1  bash -l
+
 import logging
 logging.basicConfig(level=logging.INFO)
 
