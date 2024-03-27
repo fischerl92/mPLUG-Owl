@@ -1,9 +1,8 @@
 import os
 os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
 
-from mplug_owl_video.modeling_mplug_owl import MplugOwlForConditionalGeneration
-from transformers import AutoTokenizer
-from mplug_owl_video.processing_mplug_owl import MplugOwlImageProcessor
+from transformers import AutoTokenizer, AutoImageProcessor, AutoModelForConditionalGeneration
+# from mplug_owl_video.processing_mplug_owl import MplugOwlImageProcessor
 from mplug_owl.processing_mplug_owl import MplugOwlProcessor
 import torch
 
@@ -13,14 +12,14 @@ logging.basicConfig(level=logging.INFO)
 pretrained_ckpt_video = 'MAGAer13/mplug-owl-llama-7b-video'
 pretrained_ckpt_multilingual = 'MAGAer13/mplug-owl-bloomz-7b-multilingual'
 
-model = MplugOwlForConditionalGeneration.from_pretrained(
+model = AutoModelForConditionalGeneration.from_pretrained(
     pretrained_ckpt_multilingual,
     torch_dtype=torch.bfloat16,
     # device_map={'': 0},
 )
 logging.info("loaded model")
 
-image_processor = MplugOwlImageProcessor.from_pretrained(pretrained_ckpt_video)
+image_processor = AutoImageProcessor.from_pretrained(pretrained_ckpt_video)
 tokenizer = AutoTokenizer.from_pretrained(pretrained_ckpt_multilingual)
 processor = MplugOwlProcessor(image_processor, tokenizer)
 

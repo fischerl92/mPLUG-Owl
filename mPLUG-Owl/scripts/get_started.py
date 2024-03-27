@@ -3,6 +3,9 @@ from transformers import AutoTokenizer
 from mplug_owl_video.processing_mplug_owl import MplugOwlImageProcessor, MplugOwlProcessor
 import torch
 
+import os
+os.environ["PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION"] = "python"
+
 import logging
 logging.basicConfig(level=logging.INFO)
 
